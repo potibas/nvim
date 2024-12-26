@@ -147,4 +147,13 @@ function M.insertBlankLines(lhs_above, lhs_below)
   return M
 end
 
+---Add normal mode mapping to change the word under cursor with repeat.
+---@param lhs string
+---@return KeymapFeatures
+function M.replaceUnderCursor(lhs)
+  map('n', lhs, '*``cgn', 'Change word under cursor (w/ repeat)')
+
+  return M
+end
+
 return M

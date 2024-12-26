@@ -12,6 +12,7 @@ features
   .homeEndWithHL()
   .moveLinesAround(ALT.j, ALT.k)
   .insertBlankLines('<S-CR>', '<M-CR>')
+  .replaceUnderCursor('<C-8>')
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
