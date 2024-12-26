@@ -4,3 +4,4 @@ features
   .ctrlCBehavesLikeEscInInsertMode()
   .commandModeHistorySwitch()
   --.useEmacsCommandMode()
+  .enableTabAndCtrlI()

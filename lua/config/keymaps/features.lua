@@ -55,4 +55,15 @@ function M.commandModeHistorySwitch()
   return M
 end
 
+---Allows mapping <Tab> without <C-i> having to wait for the timeout
+---@return KeymapFeatures
+function M.enableTabAndCtrlI()
+  vim.keymap.set('n', '<C-i>', '<C-i>', {
+    desc = 'Go to newer cursor position in jump llist.',
+  })
+  vim.keymap.set('n', '<Tab>', '<Tab>')
+
+  return M
+end
+
 return M
