@@ -5,3 +5,4 @@ features
   .commandModeHistorySwitch()
   --.useEmacsCommandMode()
   .enableTabAndCtrlI()
+  .expandCurrentDirectory('%%')

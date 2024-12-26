@@ -66,4 +66,16 @@ function M.enableTabAndCtrlI()
   return M
 end
 
+-- Add a mapping to expand the directory for the current buffer
+-- on command line mode.
+---@param lhs string
+---@return KeymapFeatures
+function M.expandCurrentDirectory(lhs)
+  vim.keymap.set('c', lhs, function()
+    return vim.fn.fnamemodify(vim.fn.expand('%:h'), ':p:~:.')
+  end, { desc = "Current buffer's directory", expr = true })
+
+  return M
+end
+
 return M
