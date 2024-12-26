@@ -23,6 +23,10 @@ local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
 end
 
+local function map_silent(modes, lhs, rhs, desc)
+  vim.keymap.set(modes, lhs, rhs, { desc = desc, silent = true })
+end
+
 local function pcaller(cmd)
   return function()
     pcall(cmd)
@@ -39,3 +43,6 @@ map({ 'n', 'v' }, ';w', pcaller(vim.cmd.write), 'Write Buffer')
 
 -- Contextual Help
 map('n', '<F1>', ':help <C-r><C-w><CR>', 'Show help for word under cursor')
+
+-- Open line above in insert mode
+map_silent('i', ALT.o, '<C-o>O', 'Open line above')
