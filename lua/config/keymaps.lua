@@ -50,3 +50,7 @@ map('n', '<F1>', ':help <C-r><C-w><CR>', 'Show help for word under cursor')
 
 -- Open line above in insert mode
 map_silent('i', ALT.o, '<C-o>O', 'Open line above')
+
+-- Treesitter shortcuts
+map('n', ';rt', vim.cmd.InspectTree, 'Inspect Tree')
+map('n', ';rn', vim.cmd.Inspect, 'Inspect Node')
