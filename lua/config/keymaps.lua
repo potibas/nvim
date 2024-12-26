@@ -13,7 +13,16 @@ local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
 end
 
+local function pcaller(cmd)
+  return function()
+    pcall(cmd)
+  end
+end
+
 -- Common shortcuts
 map({ 'n', 'v' }, ';a', '<C-^>', 'Edit the alternate file')
 map('n', ';x', vim.cmd.bd, 'Delete Buffer')
 map('n', '<C-q>', vim.cmd.quit, 'Quit Window')
+
+-- Write the buffer without throwing an error if there is no current file
+map({ 'n', 'v' }, ';w', pcaller(vim.cmd.write), 'Write Buffer')
