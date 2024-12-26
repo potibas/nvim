@@ -11,6 +11,7 @@ features
   .expandNeovimConfigDirectory('@@')
   .homeEndWithHL()
   .moveLinesAround(ALT.j, ALT.k)
+  .insertBlankLines('<S-CR>', '<M-CR>')
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })

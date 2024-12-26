@@ -114,4 +114,37 @@ function M.moveLinesAround(lhs_down, lhs_up)
   return M
 end
 
+local function blanks_below()
+  local line = vim.fn.line('.')
+
+  local blanks = {}
+  for i = 1, vim.v.count1 do
+    blanks[i] = ''
+  end
+
+  vim.api.nvim_buf_set_lines(0, line, line, true, blanks)
+end
+
+local function blanks_above()
+  local line = vim.fn.line('.')
+
+  local blanks = {}
+  for i = 1, vim.v.count1 do
+    blanks[i] = ''
+  end
+
+  vim.api.nvim_buf_set_lines(0, line - 1, line - 1, true, blanks)
+end
+
+---Add normal mode mappings to insert blank lines above and below the cursor.
+---@param lhs_above string
+---@param lhs_below string
+---@return KeymapFeatures
+function M.insertBlankLines(lhs_above, lhs_below)
+  map('n', lhs_above, blanks_above, 'Insert (count) line(s) above')
+  map('n', lhs_below, blanks_below, 'Insert (count) line(s) below')
+
+  return M
+end
+
 return M
