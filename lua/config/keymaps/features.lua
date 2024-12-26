@@ -156,4 +156,14 @@ function M.replaceUnderCursor(lhs)
   return M
 end
 
+---Causes the '*' mapping to keep the position after finding the first match
+---in both visual and normal modes.
+---@return KeymapFeatures
+function M.starMatchKeepsPosition()
+  -- TODO: show some visual feedback (how?)
+  map_silent({ 'n', 'v' }, '*', '*``')
+
+  return M
+end
+
 return M
