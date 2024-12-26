@@ -29,4 +29,16 @@ function M.toggleQuickfix()
   end
 end
 
+---Saves all open buffers and reloads Neovim.
+---@param force? boolean If `true`, discards any pending changes and ignores any warning.
+function M.saveAllAndReload(force)
+  if force then
+    pcall(vim.cmd.wall)
+    vim.cmd.cq({ bang = true })
+  else
+    vim.cmd.wall()
+    vim.cmd.cq()
+  end
+end
+
 return M

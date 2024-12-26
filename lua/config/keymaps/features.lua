@@ -276,4 +276,30 @@ function M.windowNavigation(left_lhs, down_lhs, up_lhs, right_lhs)
   return M
 end
 
+local all_modes = { 'n', 'i', 'c', 'v', 'x', 's', 'o', 't' }
+
+---Adds an all-modes mapping to save all open buffers and reload Neovim.
+---This needs the bin/nvim-loop script at:
+---`https://gist.github.com/potibas/c31d2e554c867e229b9953cf85d0d621`
+---@param lhs string
+---@return KeymapFeatures
+function M.reloadNeovim(lhs)
+  local f = require('lib.functions')
+  map(all_modes, lhs, f.saveAllAndReload, 'Reload Neovim')
+
+  return M
+end
+
+---Adds an all-modes mapping to discard any pending changes and reload Neovim.
+---This needs the bin/nvim-loop script at:
+---`https://gist.github.com/potibas/c31d2e554c867e229b9953cf85d0d621`
+---@param lhs string
+---@return KeymapFeatures
+function M.forceReloadNeovim(lhs)
+  local f = require('lib.functions')
+  map(all_modes, lhs, f.wrap(f.saveAllAndReload, true), 'Reload (!) Neovim')
+
+  return M
+end
+
 return M
