@@ -26,3 +26,6 @@ map('n', '<C-q>', vim.cmd.quit, 'Quit Window')
 
 -- Write the buffer without throwing an error if there is no current file
 map({ 'n', 'v' }, ';w', pcaller(vim.cmd.write), 'Write Buffer')
+
+-- Contextual Help
+map('n', '<F1>', ':help <C-r><C-w><CR>', 'Show help for word under cursor')
