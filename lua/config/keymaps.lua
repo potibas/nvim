@@ -16,3 +16,4 @@ end
 -- Common shortcuts
 map({ 'n', 'v' }, ';a', '<C-^>', 'Edit the alternate file')
 map('n', ';x', vim.cmd.bd, 'Delete Buffer')
+map('n', '<C-q>', vim.cmd.quit, 'Quit Window')
