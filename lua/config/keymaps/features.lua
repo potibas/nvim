@@ -2,19 +2,31 @@
 ---@class KeymapFeatures
 local M = {}
 
+local function map(modes, lhs, rhs, desc)
+  vim.keymap.set(modes, lhs, rhs, { desc = desc })
+end
+
+local function map_silent(modes, lhs, rhs, desc)
+  vim.keymap.set(modes, lhs, rhs, { desc = desc, silent = true })
+end
+
+local function map_expr(modes, lhs, rhs, desc)
+  vim.keymap.set(modes, lhs, rhs, { desc = desc, expr = true })
+end
+
 ---Enable emacs-like editing in the command line
 ---@param cedit? string Mapping to use for bringing the command window
 ---(This is <C-f> in vanilla vim, but emacs mode uses <C-f> to move right).
 ---In not specified, it will be changed to "<C-g>"
 ---@return KeymapFeatures
 function M.useEmacsCommandMode(cedit)
-  vim.keymap.set('c', '<C-a>', '<Home>', { desc = 'Beginning of line' })
-  vim.keymap.set('c', '<C-e>', '<End>', { desc = 'End of line' })
-  vim.keymap.set('c', '<C-f>', '<Right>', { desc = 'Right' })
-  vim.keymap.set('c', '<C-b>', '<Left>', { desc = 'Left' })
-  vim.keymap.set('c', '<A-f>', '<C-Right>', { desc = 'One word right' })
-  vim.keymap.set('c', '<A-b>', '<C-Left>', { desc = 'One word left' })
-  vim.keymap.set('c', '<C-d>', '<Del>', { desc = 'Delete right' })
+  map('c', '<C-a>', '<Home>', { desc = 'Beginning of line' })
+  map('c', '<C-e>', '<End>', { desc = 'End of line' })
+  map('c', '<C-f>', '<Right>', { desc = 'Right' })
+  map('c', '<C-b>', '<Left>', { desc = 'Left' })
+  map('c', '<A-f>', '<C-Right>', { desc = 'One word right' })
+  map('c', '<A-b>', '<C-Left>', { desc = 'One word left' })
+  map('c', '<C-d>', '<Del>', { desc = 'Delete right' })
   vim.opt.cedit = cedit or '<C-g>'
 
   return M
@@ -23,12 +35,15 @@ end
 ---Makes <C-c> behave like <Esc> in insert mode.
 ---@return KeymapFeatures
 function M.ctrlCBehavesLikeEscInInsertMode()
-  vim.keymap.set('i', '<C-c>', '<Esc>', {
-    desc = 'Exit insert mode',
-    silent = true,
-  })
+  map_silent('i', '<C-c>', '<Esc>', 'Exit insert mode')
 
   return M
+end
+
+local function ifwild(if_true, if_false)
+  return function()
+    return vim.fn.wildmenumode() == 1 and if_true or if_false
+  end
 end
 
 ---Switch functionality between the arrow keys and <C-p>/<C-n>
@@ -36,21 +51,10 @@ end
 ---<Up>/<Down> to cycle through all)
 ---@return KeymapFeatures
 function M.commandModeHistorySwitch()
-  vim.keymap.set('c', '<C-n>', function()
-    return vim.fn.wildmenumode() == 1 and '<C-n>' or '<Down>'
-  end, { desc = 'Search Command History Backwards', expr = true })
-
-  vim.keymap.set('c', '<C-p>', function()
-    return vim.fn.wildmenumode() == 1 and '<C-p>' or '<Up>'
-  end, { desc = 'Search Command History Forward', expr = true })
-
-  vim.keymap.set('c', '<Down>', function()
-    return vim.fn.wildmenumode() == 1 and '<Down>' or '<C-n>'
-  end, { desc = 'Command History Prev', expr = true })
-
-  vim.keymap.set('c', '<Up>', function()
-    return vim.fn.wildmenumode() == 1 and '<Up>' or '<C-p>'
-  end, { desc = 'Command History Next', expr = true })
+  map_expr('c', '<C-n>', ifwild('<C-n>', '<Down>'), 'Search History Backwards')
+  map_expr('c', '<C-p>', ifwild('<C-p>', '<Up>'), 'Search History Forward')
+  map_expr('c', '<Down>', ifwild('<Down>', '<C-n>'), 'Command History Prev')
+  map_expr('c', '<Up>', ifwild('<Up>', '<C-p>'), 'Command History Next')
 
   return M
 end
@@ -58,10 +62,8 @@ end
 ---Allows mapping <Tab> without <C-i> having to wait for the timeout
 ---@return KeymapFeatures
 function M.enableTabAndCtrlI()
-  vim.keymap.set('n', '<C-i>', '<C-i>', {
-    desc = 'Go to newer cursor position in jump llist.',
-  })
-  vim.keymap.set('n', '<Tab>', '<Tab>')
+  map('n', '<C-i>', '<C-i>', 'Go to newer cursor position in jump llist.')
+  map('n', '<Tab>', '<Tab>', 'Next tab stop')
 
   return M
 end
@@ -71,9 +73,9 @@ end
 ---@param lhs string
 ---@return KeymapFeatures
 function M.expandCurrentDirectory(lhs)
-  vim.keymap.set('c', lhs, function()
+  map_expr('c', lhs, function()
     return vim.fn.fnamemodify(vim.fn.expand('%:h'), ':p:~:.')
-  end, { desc = "Current buffer's directory", expr = true })
+  end, "Current buffer's directory")
 
   return M
 end
@@ -82,9 +84,9 @@ end
 ---@param lhs string
 ---@return KeymapFeatures
 function M.expandNeovimConfigDirectory(lhs)
-  vim.keymap.set('c', lhs, function()
+  map_expr('c', lhs, function()
     return vim.fn.fnamemodify(vim.fn.stdpath('config'), ':p:~:.')
-  end, { desc = 'Neovim config directory', expr = true })
+  end, 'Neovim config directory')
 
   return M
 end
@@ -93,8 +95,8 @@ end
 ---with H and L (mimicking Home and End keys on PCs).
 ---@return KeymapFeatures
 function M.homeEndWithHL()
-  vim.keymap.set({ 'n', 'v' }, 'H', '^', { desc = 'Start of line' })
-  vim.keymap.set({ 'n', 'v' }, 'L', 'g_', { desc = 'End of line' })
+  map({ 'n', 'v' }, 'H', '^', 'Start of line')
+  map({ 'n', 'v' }, 'L', 'g_', 'End of line')
 
   return M
 end
