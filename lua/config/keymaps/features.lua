@@ -248,4 +248,16 @@ function M.insertModeMovementKeys(left_lhs, down_lhs, up_lhs, right_lhs)
   return M
 end
 
+---Adds a normal mode mapping to delete the file and the current buffer.
+---@param lhs string
+---@return KeymapFeatures
+function M.forceDelete(lhs)
+  map_silent('n', lhs, function()
+    vim.fn.delete(vim.fn.expand('%'))
+    vim.cmd.bdelete({ bang = true })
+  end, 'Delete(!) the current file')
+
+  return M
+end
+
 return M

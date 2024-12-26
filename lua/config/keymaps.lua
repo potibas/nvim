@@ -18,6 +18,7 @@ features
   .toggleQuickfixWindow(';uq')
   .dontReplaceRegisterWhenPasting()
   .insertModeMovementKeys('<M-C-H>', '<M-NL>', '<M-C-K>', '<M-C-L>')
+  .forceDelete('<C-\\><C-x>')
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
