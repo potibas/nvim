@@ -166,4 +166,52 @@ function M.starMatchKeepsPosition()
   return M
 end
 
+-- Reference: https://github.com/ibhagwan/nvim-lua/blob/82accf3aac/lua/utils.lua#L233
+--
+-- expand or minimize current buffer in a more natural direction (tmux-like)
+-- ':resize <+-n>' or ':vert resize <+-n>' increases or decreasese current
+-- window horizontally or vertically. When mapped to '<leader><arrow>' this
+-- can get confusing as left might actually be right, etc
+-- the below can be mapped to arrows and will work similar to the tmux binds
+-- map to: "<cmd>lua require'utils'.resize(false, -5)<CR>"
+function resize_window(vertical, margin)
+  local cur_win = vim.api.nvim_get_current_win()
+  -- go (possibly) right
+  vim.cmd(string.format('wincmd %s', vertical and 'l' or 'j'))
+  local new_win = vim.api.nvim_get_current_win()
+
+  -- determine direction cond on increase and existing right-hand buffer
+  local not_last = not (cur_win == new_win)
+  local sign = margin > 0
+
+  -- go to previous window if required otherwise flip sign
+  if not_last == true then
+    vim.cmd([[wincmd p]])
+  else
+    sign = not sign
+  end
+
+  local sign_str = sign and '+' or '-'
+  local dir = vertical and 'vertical ' or ''
+  local cmd = dir .. 'resize ' .. sign_str .. math.abs(margin) .. '<CR>'
+  vim.cmd(cmd)
+end
+
+---Adds normal mode mappings to resize the windows "Tmux-style"
+---(considering the direction)
+---@param left_lhs string
+---@param down_lhs string
+---@param up_lhs string
+---@param right_lhs string
+---@return KeymapFeatures
+function M.tmuxStyleWindowResize(left_lhs, down_lhs, up_lhs, right_lhs)
+  local f = require('lib.functions')
+  map('n', left_lhs, f.wrap(resize_window, true, -2), 'Resize Split Left')
+  map('n', down_lhs, f.wrap(resize_window, false, 2), 'Resize Split Down')
+  map('n', up_lhs, f.wrap(resize_window, false, -2), 'Resize Split Up')
+  map('n', right_lhs, f.wrap(resize_window, true, 2), 'Resize Split Right')
+
+  return M
+end
+
 return M

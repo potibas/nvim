@@ -14,6 +14,7 @@ features
   .insertBlankLines('<S-CR>', '<M-CR>')
   .replaceUnderCursor('<C-8>')
   .starMatchKeepsPosition()
+  .tmuxStyleWindowResize('<C-S-H>', '<C-S-J>', '<C-S-K>', '<C-S-L>')
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
