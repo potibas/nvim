@@ -89,4 +89,14 @@ function M.expandNeovimConfigDirectory(lhs)
   return M
 end
 
+---Add visual and normal mode mappings to jump to the start and end of line
+---with H and L (mimicking Home and End keys on PCs).
+---@return KeymapFeatures
+function M.homeEndWithHL()
+  vim.keymap.set({ 'n', 'v' }, 'H', '^', { desc = 'Start of line' })
+  vim.keymap.set({ 'n', 'v' }, 'L', 'g_', { desc = 'End of line' })
+
+  return M
+end
+
 return M

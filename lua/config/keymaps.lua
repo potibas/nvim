@@ -7,3 +7,4 @@ features
   .enableTabAndCtrlI()
   .expandCurrentDirectory('%%')
   .expandNeovimConfigDirectory('@@')
+  .homeEndWithHL()
