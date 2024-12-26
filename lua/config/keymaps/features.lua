@@ -233,4 +233,19 @@ function M.dontReplaceRegisterWhenPasting()
   return M
 end
 
+---Adds mappings to move around in insert mode.
+---@param left_lhs string
+---@param down_lhs string
+---@param up_lhs string
+---@param right_lhs string
+---@return KeymapFeatures
+function M.insertModeMovementKeys(left_lhs, down_lhs, up_lhs, right_lhs)
+  map('i', left_lhs, '<Left>', 'Left')
+  map('i', down_lhs, '<Down>', 'Down')
+  map('i', up_lhs, '<Up>', 'Up')
+  map('i', right_lhs, '<Right>', 'Right')
+
+  return M
+end
+
 return M

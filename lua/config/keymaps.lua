@@ -17,6 +17,7 @@ features
   .tmuxStyleWindowResize('<C-S-H>', '<C-S-J>', '<C-S-K>', '<C-S-L>')
   .toggleQuickfixWindow(';uq')
   .dontReplaceRegisterWhenPasting()
+  .insertModeMovementKeys('<M-C-H>', '<M-NL>', '<M-C-K>', '<M-C-L>')
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
