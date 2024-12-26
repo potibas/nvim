@@ -73,9 +73,8 @@ end
 ---@param lhs string
 ---@return KeymapFeatures
 function M.expandCurrentDirectory(lhs)
-  map_expr('c', lhs, function()
-    return vim.fn.fnamemodify(vim.fn.expand('%:h'), ':p:~:.')
-  end, "Current buffer's directory")
+  local paths = require('lib.paths')
+  map_expr('c', lhs, paths.current_buffer_dir, "Current buffer's directory")
 
   return M
 end
@@ -84,9 +83,8 @@ end
 ---@param lhs string
 ---@return KeymapFeatures
 function M.expandNeovimConfigDirectory(lhs)
-  map_expr('c', lhs, function()
-    return vim.fn.fnamemodify(vim.fn.stdpath('config'), ':p:~:.')
-  end, 'Neovim config directory')
+  local paths = require('lib.paths')
+  map_expr('c', lhs, paths.neovim_config_dir, 'Neovim config directory')
 
   return M
 end
