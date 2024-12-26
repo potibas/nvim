@@ -101,4 +101,19 @@ function M.homeEndWithHL()
   return M
 end
 
+---Add visual/insert/normal mode mappings to move entire lines up and down.
+---@param lhs_down string
+---@param lhs_up string
+---@return KeymapFeatures
+function M.moveLinesAround(lhs_down, lhs_up)
+  map_silent('i', lhs_down, '<esc><cmd>m .+1<cr>==gi', 'Move Down')
+  map_silent('i', lhs_up, '<esc><cmd>m .-2<cr>==gi', 'Move Up')
+  map_silent('n', lhs_down, '<cmd>m .+1<cr>==', 'Move Down')
+  map_silent('n', lhs_up, '<cmd>m .-2<cr>==', 'Move Up')
+  map_silent('v', lhs_down, ":m '>+1<cr>gv=gv", 'Move Down')
+  map_silent('v', lhs_up, ":m '<-2<cr>gv=gv", 'Move Up')
+
+  return M
+end
+
 return M
