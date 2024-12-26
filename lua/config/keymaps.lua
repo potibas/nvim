@@ -1,3 +1,5 @@
+require('config.keymaps.keycodes')
+
 local features = require('config.keymaps.features')
 
 features
