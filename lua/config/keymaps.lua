@@ -6,3 +6,4 @@ features
   --.useEmacsCommandMode()
   .enableTabAndCtrlI()
   .expandCurrentDirectory('%%')
+  .expandNeovimConfigDirectory('@@')

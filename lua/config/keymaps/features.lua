@@ -78,4 +78,15 @@ function M.expandCurrentDirectory(lhs)
   return M
 end
 
+-- Add a mapping to expand Neovim's config directory on command line mode.
+---@param lhs string
+---@return KeymapFeatures
+function M.expandNeovimConfigDirectory(lhs)
+  vim.keymap.set('c', lhs, function()
+    return vim.fn.fnamemodify(vim.fn.stdpath('config'), ':p:~:.')
+  end, { desc = 'Neovim config directory', expr = true })
+
+  return M
+end
+
 return M
