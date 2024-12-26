@@ -11,4 +11,22 @@ function M.wrap(fn, ...)
   end
 end
 
+---Switches the quickfix list window between visible and invisible.
+function M.toggleQuickfix()
+  local qf = vim.tbl_filter(function(win)
+    return win.quickfix == 1 and win.loclist == 0
+  end, vim.fn.getwininfo())
+
+  if #qf > 0 then
+    --- visible, make invisible ("toggle off")
+    for _, win in ipairs(qf) do
+      vim.api.nvim_win_hide(win.winid)
+    end
+  else
+    --- no windows, create one and move down ("toggle on")
+    vim.cmd.copen()
+    vim.cmd.wincmd('J')
+  end
+end
+
 return M

@@ -214,4 +214,14 @@ function M.tmuxStyleWindowResize(left_lhs, down_lhs, up_lhs, right_lhs)
   return M
 end
 
+---Adds a normal mode mapping to toggle the quickfix window.
+---@param lhs string
+---@return KeymapFeatures
+function M.toggleQuickfixWindow(lhs)
+  local f = require('lib.functions')
+  map('n', lhs, f.toggleQuickfix, 'Toggle Quickfix Window')
+
+  return M
+end
+
 return M
