@@ -224,4 +224,13 @@ function M.toggleQuickfixWindow(lhs)
   return M
 end
 
+---Changes the `p` mapping so it doesn't replace the register with the
+---exixting text when pasting.
+---@return KeymapFeatures
+function M.dontReplaceRegisterWhenPasting()
+  map_silent('x', 'p', '"_dP', 'Paste')
+
+  return M
+end
+
 return M

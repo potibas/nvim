@@ -16,6 +16,7 @@ features
   .starMatchKeepsPosition()
   .tmuxStyleWindowResize('<C-S-H>', '<C-S-J>', '<C-S-K>', '<C-S-L>')
   .toggleQuickfixWindow(';uq')
+  .dontReplaceRegisterWhenPasting()
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
