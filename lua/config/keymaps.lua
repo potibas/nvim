@@ -15,6 +15,7 @@ features
   .replaceUnderCursor('<C-8>')
   .starMatchKeepsPosition()
   .tmuxStyleWindowResize('<C-S-H>', '<C-S-J>', '<C-S-K>', '<C-S-L>')
+  .windowNavigation('<C-h>', '<C-j>', '<C-k>', '<C-l>')
   .toggleQuickfixWindow(';uq')
   .dontReplaceRegisterWhenPasting()
   .insertModeMovementKeys('<M-C-H>', '<M-NL>', '<M-C-K>', '<M-C-L>')

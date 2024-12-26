@@ -260,4 +260,20 @@ function M.forceDelete(lhs)
   return M
 end
 
+---Adds normal and terminal mappings to navigate through windows.
+---@param left_lhs string
+---@param down_lhs string
+---@param up_lhs string
+---@param right_lhs string
+---@return KeymapFeatures
+function M.windowNavigation(left_lhs, down_lhs, up_lhs, right_lhs)
+  local f = require('lib.functions')
+  map({ 'n', 't' }, left_lhs, f.wrap(vim.cmd.wincmd, 'h'), 'Navigate Left')
+  map({ 'n', 't' }, down_lhs, f.wrap(vim.cmd.wincmd, 'j'), 'Navigate Down')
+  map({ 'n', 't' }, up_lhs, f.wrap(vim.cmd.wincmd, 'k'), 'Navigate Up')
+  map({ 'n', 't' }, right_lhs, f.wrap(vim.cmd.wincmd, 'l'), 'Navigate Right')
+
+  return M
+end
+
 return M
