@@ -33,11 +33,7 @@ local function map_silent(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc, silent = true })
 end
 
-local function pcaller(cmd)
-  return function()
-    pcall(cmd)
-  end
-end
+local f = require('lib.functions')
 
 -- Common shortcuts
 map({ 'n', 'v' }, ';a', '<C-^>', 'Edit the alternate file')
@@ -45,7 +41,7 @@ map({ 'n', 't' }, '<C-q>', vim.cmd.quit, 'Quit Window')
 map('n', ';x', vim.cmd.bd, 'Delete Buffer')
 
 -- Write the buffer without throwing an error if there is no current file
-map({ 'n', 'v' }, ';w', pcaller(vim.cmd.write), 'Write Buffer')
+map({ 'n', 'v' }, ';w', f.pcaller(vim.cmd.write), 'Write Buffer')
 
 -- Open line above in insert mode
 map_silent('i', ALT.o, '<C-o>O', 'Open line above')

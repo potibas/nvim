@@ -11,6 +11,20 @@ function M.wrap(fn, ...)
   end
 end
 
+---Returns a function that will call the function `fun` with the given arguments in protected mode.
+---The returned function returns true and `fun`'s result in case of success; otherwise, false plus the error object.
+---@generic T
+---@param fun   fun(): T
+---@param ...   any
+---@return fun(): (success:boolean, result:T)
+function M.pcaller(fun, ...)
+  local args = { ... }
+
+  return function()
+    return pcall(fun, unpack(args))
+  end
+end
+
 ---Switches the quickfix list window between visible and invisible.
 function M.toggleQuickfix()
   local qf = vim.tbl_filter(function(win)
