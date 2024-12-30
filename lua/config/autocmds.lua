@@ -18,3 +18,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank({ timeout = 50 })
   end,
 })
+
+--- List of filetypes to close with <q>
+vim.g.quickclose = {
+  help = 'bd',
+  checkhealth = 'q',
+  man = 'q',
+  qf = 'q',
+}
+
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Close some windows with <q>',
+  group = augroup('quickclose'),
+  pattern = '*',
+  callback = function(event)
+    local rhs = vim.tbl_get(vim.g.quickclose, event.match)
+    if rhs then
+      vim.bo[event.buf].buflisted = false
+      vim.keymap.set('n', 'q', '<Cmd>' .. rhs .. '<CR>', {
+        buffer = event.buf,
+        silent = true,
+        desc = 'Quit Window',
+      })
+    end
+  end,
+})
