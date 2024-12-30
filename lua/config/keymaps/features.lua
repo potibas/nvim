@@ -302,4 +302,20 @@ function M.forceReloadNeovim(lhs)
   return M
 end
 
+---Adds normal mode mappings to goto next and previous diagnostics with `]d` and `[d`
+---@param options? vim.diagnostic.GotoOpts
+---@return KeymapFeatures
+function M.navigateDiagnostics(options)
+  local f = require('lib.functions')
+  options = options or {}
+
+  local next = f.wrap(vim.diagnostic.goto_next, options)
+  local prev = f.wrap(vim.diagnostic.goto_prev, options)
+
+  map('n', ']d', next, 'Next diagnostic')
+  map('n', '[d', prev, 'Previous diagnostic')
+
+  return M
+end
+
 return M

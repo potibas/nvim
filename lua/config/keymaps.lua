@@ -22,6 +22,7 @@ features
   .forceDelete('<C-\\><C-x>')
   .reloadNeovim('<C-\\><C-\\>')
   .forceReloadNeovim('<C-\\><C-q>')
+  .navigateDiagnostics({ float = true })
 
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
