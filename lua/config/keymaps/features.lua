@@ -302,6 +302,15 @@ function M.forceReloadNeovim(lhs)
   return M
 end
 
+---Adds normal mapping to show contextual help, defaults to <F1>
+---@param lhs? string
+---@return KeymapFeatures
+function M.contextualHelp(lhs)
+  map('n', lhs or '<F1>', ':help <C-r><C-w><CR>', 'Help for word under cursor')
+
+  return M
+end
+
 ---Adds normal mode mappings to goto next and previous diagnostics with `]d` and `[d`
 ---@param options? vim.diagnostic.GotoOpts
 ---@return KeymapFeatures

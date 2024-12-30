@@ -22,6 +22,7 @@ features
   .forceDelete('<C-\\><C-x>')
   .reloadNeovim('<C-\\><C-\\>')
   .forceReloadNeovim('<C-\\><C-q>')
+  .contextualHelp('<Space>?')
   .navigateDiagnostics({ float = true })
 
 local function map(modes, lhs, rhs, desc)
@@ -45,9 +46,6 @@ map('n', ';x', vim.cmd.bd, 'Delete Buffer')
 
 -- Write the buffer without throwing an error if there is no current file
 map({ 'n', 'v' }, ';w', pcaller(vim.cmd.write), 'Write Buffer')
-
--- Contextual Help
-map('n', '<F1>', ':help <C-r><C-w><CR>', 'Show help for word under cursor')
 
 -- Open line above in insert mode
 map_silent('i', ALT.o, '<C-o>O', 'Open line above')
