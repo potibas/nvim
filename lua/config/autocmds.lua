@@ -25,6 +25,7 @@ vim.g.quickclose = {
   checkhealth = 'q',
   man = 'q',
   qf = 'q',
+  query = 'q',
 }
 
 vim.api.nvim_create_autocmd('FileType', {
