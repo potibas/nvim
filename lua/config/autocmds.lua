@@ -60,3 +60,16 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+-- Ref: https://github.com/LazyVim/LazyVim/blob/12818a6c/lua/lazyvim/config/autocmds.lua#L111
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+  desc = 'Create all the necessary directories when saving a file',
+  group = augroup('auto-create-dir'),
+  callback = function(event)
+    if event.match:match('^%w%w+:[\\/][\\/]') then
+      return
+    end
+    local file = vim.uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
+  end,
+})
