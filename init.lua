@@ -4,4 +4,6 @@ require('config.keymaps')
 require('config.autocmds')
 require('config.diagnostics')
 
+Spec('plugins.which-key')
+
 require('plugins.lazy')
