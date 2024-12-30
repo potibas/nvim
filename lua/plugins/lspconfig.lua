@@ -80,6 +80,7 @@ return {
       map(';cls', vim.cmd.LspStart, 'Start LSP Client')
       map(';clR', vim.cmd.LspRestart, 'Restart LSP Client')
       map(';clT', vim.cmd.LspStop, 'Stop LSP Client')
+      map('<Space>om', vim.cmd.Mason, 'Open Mason')
     end,
   },
 }
