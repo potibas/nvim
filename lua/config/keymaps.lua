@@ -33,6 +33,10 @@ local function map_silent(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc, silent = true })
 end
 
+local function remap(modes, lhs, rhs, desc)
+  vim.keymap.set(modes, lhs, rhs, { desc = desc, remap = true })
+end
+
 local f = require('lib.functions')
 
 -- Common shortcuts
@@ -49,3 +53,8 @@ map_silent('i', ALT.o, '<C-o>O', 'Open line above')
 -- Treesitter shortcuts
 map('n', ';rt', vim.cmd.InspectTree, 'Inspect Tree')
 map('n', ';rn', vim.cmd.Inspect, 'Inspect Node')
+
+-- Comment code
+remap('n', ',', 'gc', 'Toggle comments {motion}')
+remap('n', '<C-/>', 'gcc', 'Toggle comments')
+remap('v', '<C-/>', 'gc', 'Toggle comments')
