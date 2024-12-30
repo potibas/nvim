@@ -60,3 +60,10 @@ vim.opt.autoindent = true
 vim.opt.softtabstop = 4
 vim.opt.smartindent = true
 vim.opt.shell = '/bin/zsh'
+
+--- Disable plugins and remote plugin providers that I don't use
+vim.g.loaded_matchit = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
