@@ -6,5 +6,6 @@ require('config.diagnostics')
 
 Spec('plugins.which-key')
 Spec('plugins.fzf')
+Spec('plugins.oil')
 
 require('plugins.lazy')
