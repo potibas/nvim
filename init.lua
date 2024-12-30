@@ -7,5 +7,8 @@ require('config.diagnostics')
 Spec('plugins.which-key')
 Spec('plugins.fzf')
 Spec('plugins.oil')
+Spec('plugins.lspconfig')
+
+Spec('extras.lang.lua')
 
 require('plugins.lazy')
