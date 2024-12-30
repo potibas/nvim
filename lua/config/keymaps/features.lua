@@ -311,6 +311,25 @@ function M.contextualHelp(lhs)
   return M
 end
 
+---Adds a normal and visual modes mapping that replicates the <C-l> default mapping added by Neovim.
+---(Clears the screen, updates diffs and clears search highlights)
+---@param lhs string
+---@return KeymapFeatures
+function M.clearScreen(lhs)
+  local f = require('lib.functions')
+  local redraw = f.pcaller(vim.cmd.redraw, { bang = true })
+  local diffupdate = f.pcaller(vim.cmd.diffupdate)
+  local nohlsearch = f.pcaller(vim.cmd.nohlsearch)
+
+  local command = function()
+    return redraw() and diffupdate() and nohlsearch()
+  end
+
+  map({ 'n', 'v' }, lhs, command, 'Clear Screen')
+
+  return M
+end
+
 ---Adds normal mode mappings to goto next and previous diagnostics with `]d` and `[d`
 ---@param options? vim.diagnostic.GotoOpts
 ---@return KeymapFeatures

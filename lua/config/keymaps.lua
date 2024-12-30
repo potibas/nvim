@@ -23,6 +23,7 @@ features
   .reloadNeovim('<C-\\><C-\\>')
   .forceReloadNeovim('<C-\\><C-q>')
   .contextualHelp('<Space>?')
+  .clearScreen(ALT.l)
   .navigateDiagnostics({ float = true })
 
 local function map(modes, lhs, rhs, desc)
