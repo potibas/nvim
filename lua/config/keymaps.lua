@@ -26,6 +26,8 @@ features
   .clearScreen(ALT.l)
   .navigateDiagnostics({ float = true })
 
+ALL_MODES = { 'n', 'i', 'c', 'v', 'x', 's', 'o', 't' }
+
 local function map(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc })
 end
