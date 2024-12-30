@@ -8,6 +8,7 @@ Spec('plugins.which-key')
 Spec('plugins.fzf')
 Spec('plugins.oil')
 Spec('plugins.lspconfig')
+Spec('plugins.treesitter')
 
 Spec('extras.lang.lua')
 

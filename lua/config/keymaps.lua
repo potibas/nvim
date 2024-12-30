@@ -55,7 +55,7 @@ map_silent('i', ALT.o, '<C-o>O', 'Open line above')
 
 -- Treesitter shortcuts
 map('n', ';rt', vim.cmd.InspectTree, 'Inspect Tree')
-map('n', ';rn', vim.cmd.Inspect, 'Inspect Node')
+map('n', ';r?', vim.cmd.Inspect, 'Inspect Node')
 
 -- Comment code
 remap('n', ',', 'gc', 'Toggle comments {motion}')
