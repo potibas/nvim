@@ -43,3 +43,20 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd('BufReadPost', {
+  desc = 'Jump to last cursor position when entering a file',
+  pattern = '*',
+  group = augroup('jump-to-last-position'),
+  callback = function(ev)
+    if ev.match:match('COMMIT_EDITMSG') then
+      return
+    end
+
+    -- ref: garybernhardt/dotfiles
+    local line = vim.fn.line('\'"')
+    if line > 0 and line <= vim.fn.line('$') then
+      vim.cmd.normal('g`"')
+    end
+  end,
+})
