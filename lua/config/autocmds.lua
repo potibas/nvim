@@ -10,3 +10,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
   end,
 })
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Flash the yanked text',
+  group = augroup('yank-highlight'),
+  callback = function()
+    vim.highlight.on_yank({ timeout = 50 })
+  end,
+})
