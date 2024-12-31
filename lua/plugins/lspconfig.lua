@@ -39,10 +39,11 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
 
-    opts_extend = { 'servers' },
+    opts_extend = { 'servers', 'capabilities' },
 
     opts = {
       servers = {},
+      capabilities = {},
     },
 
     config = function(_, opts)
@@ -50,6 +51,11 @@ return {
       -- Get default client capabilities
       local client_capabilities = vim.lsp.protocol.make_client_capabilities()
       local handlers = {}
+
+      for _, cap in ipairs(opts.capabilities) do
+        client_capabilities =
+          vim.tbl_deep_extend('force', client_capabilities, cap)
+      end
 
       --:help mason-lspconfig.setup_handlers()
       for _, server_name in ipairs(opts.servers) do
