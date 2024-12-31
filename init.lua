@@ -9,6 +9,7 @@ Spec('plugins.fzf')
 Spec('plugins.oil')
 Spec('plugins.lspconfig')
 Spec('plugins.treesitter')
+Spec('plugins.blink')
 
 Spec('colorschemes.kanagawa')
 
