@@ -10,6 +10,10 @@ Spec('plugins.oil')
 Spec('plugins.lspconfig')
 Spec('plugins.treesitter')
 
+Spec('colorschemes.kanagawa')
+
 Spec('extras.lang.lua')
 
 require('plugins.lazy')
+
+vim.cmd.colorscheme('kanagawa')
