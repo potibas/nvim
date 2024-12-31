@@ -13,6 +13,7 @@ Spec('plugins.treesitter')
 Spec('colorschemes.kanagawa')
 
 Spec('extras.lang.lua')
+Spec('extras.lang.php')
 
 require('plugins.lazy')
 
