@@ -445,4 +445,42 @@ function M.multijumpBuffers()
   return M
 end
 
+---Enable multijump mode to navigate diagnostics with <n> and '<N>'
+---@param options? vim.diagnostic.GotoOpts
+---@return KeymapFeatures
+function M.multijumpDiagnostics(options)
+  local f = require('lib.functions')
+
+  options = options or {}
+
+  vim.api.nvim_create_user_command('MultijumpDiagnosticNext', function()
+    --we check because vim.diagnostic.goto_next doesn't error or return any meaningful value
+    if vim.diagnostic.get_next_pos() then
+      vim.diagnostic.goto_next(options)
+    else
+      f.warn('No more diagnostics to move to')
+    end
+  end, { desc = 'Next Diagnostic' })
+
+  vim.api.nvim_create_user_command('MultijumpDiagnosticPrev', function()
+    --we check because vim.diagnostic.goto_prev doesn't error or return any meaningful value
+    if vim.diagnostic.get_prev_pos() then
+      vim.diagnostic.goto_prev(options)
+    else
+      f.warn('No more diagnostics to move to')
+    end
+  end, { desc = 'Previous Diagnostic' })
+
+  mj_add_mode(
+    'd',
+    '<Cmd>MultijumpDiagnosticNext<CR>',
+    '<Cmd>MultijumpDiagnosticPrev<CR>'
+  )
+
+  map_silent_expr('n', ']d', mj_next_mapping('d'), 'Next Diagnostic')
+  map_silent_expr('n', '[d', mj_prev_mapping('d'), 'Previous Diagnostic')
+
+  return M
+end
+
 return M

@@ -27,7 +27,8 @@ features
   .multijumpEnable()
   .multijumpQuickfix()
   .multijumpBuffers()
-  .navigateDiagnostics({ float = true })
+  -- .navigateDiagnostics({ float = true })
+  .multijumpDiagnostics({ float = true })
 
 ALL_MODES = { 'n', 'i', 'c', 'v', 'x', 's', 'o', 't' }
 
