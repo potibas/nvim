@@ -67,11 +67,18 @@ add_icons('diagnostics', {
 add_icons('misc', {
   Bulb = '',
   BulbFilled = '',
+  CodeCheck = '󰚔',
   Comment = '',
   DoubleChevronRight = '»',
   Ellipsis = '',
   PlusSquare = '',
+  Star = '',
+  TestTube = '🧪',
   Thunder = '',
+})
+
+add_icons('trademarks', {
+  Vim = '',
 })
 
 add_icons('arrows', {
