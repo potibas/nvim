@@ -10,6 +10,7 @@ Spec('plugins.oil')
 Spec('plugins.lspconfig')
 Spec('plugins.treesitter')
 Spec('plugins.blink')
+Spec('plugins.vim-test')
 
 Spec('plugins.supermaven')
 
