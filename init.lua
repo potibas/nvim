@@ -18,4 +18,4 @@ Spec('extras.lang.php')
 
 require('plugins.lazy')
 
-vim.cmd.colorscheme('kanagawa')
+vim.cmd.colorscheme('tokyonight')

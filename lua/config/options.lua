@@ -46,7 +46,7 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.completeopt = 'menu,menuone,preview,noinsert'
 
 -- Searching
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
