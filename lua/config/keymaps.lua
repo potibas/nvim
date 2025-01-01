@@ -65,3 +65,6 @@ map('n', ';r?', vim.cmd.Inspect, 'Inspect Node')
 remap('n', ',', 'gc', 'Toggle comments {motion}')
 remap('n', '<C-/>', 'gcc', 'Toggle comments')
 remap('v', '<C-/>', 'gc', 'Toggle comments')
+
+-- Extra Shortcuts
+remap('n', ';d', ']d', 'Next diagnostic')
