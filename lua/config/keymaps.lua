@@ -49,6 +49,7 @@ local f = require('lib.functions')
 -- Common shortcuts
 map({ 'n', 'v' }, ';a', '<C-^>', 'Edit the alternate file')
 map({ 'n', 't' }, '<C-q>', vim.cmd.quit, 'Quit Window')
+map({ 'n', 't' }, '<C-x>', vim.cmd.bd, 'Delete Buffer')
 map('n', ';x', vim.cmd.bd, 'Delete Buffer')
 
 -- Write the buffer without throwing an error if there is no current file
