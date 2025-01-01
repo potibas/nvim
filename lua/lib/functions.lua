@@ -43,6 +43,26 @@ function M.toggleQuickfix()
   end
 end
 
+---Shows a warning message on the output using the `WarningMsg` highlight group.
+---@param message string
+---@param ...   any arguments to be formatted into the message
+function M.warn(message, ...)
+  local msg = vim.tbl_count({ ... }) == 0 and message
+    or string.format(message, ...)
+
+  vim.api.nvim_echo({ { msg, 'WarningMsg' } }, true, {})
+end
+
+---Shows an informational message on the output using the `MoreMsg` highlight group.
+---@param message string
+---@param ...   any arguments to be formatted into the message
+function M.info(message, ...)
+  local msg = vim.tbl_count({ ... }) == 0 and message
+    or string.format(message, ...)
+
+  vim.api.nvim_echo({ { msg, 'MoreMsg' } }, true, {})
+end
+
 ---Saves all open buffers and reloads Neovim.
 ---@param force? boolean If `true`, discards any pending changes and ignores any warning.
 function M.saveAllAndReload(force)
