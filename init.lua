@@ -11,7 +11,7 @@ Spec('plugins.lspconfig')
 Spec('plugins.treesitter')
 Spec('plugins.blink')
 
-Spec('colorschemes.kanagawa')
+Spec('extras.colorschemes')
 
 Spec('extras.lang.lua')
 Spec('extras.lang.php')
