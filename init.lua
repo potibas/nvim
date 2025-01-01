@@ -11,6 +11,8 @@ Spec('plugins.lspconfig')
 Spec('plugins.treesitter')
 Spec('plugins.blink')
 
+Spec('plugins.supermaven')
+
 Spec('extras.colorschemes')
 
 Spec('extras.lang.lua')
