@@ -24,6 +24,9 @@ features
   .forceReloadNeovim('<C-\\><C-q>')
   .contextualHelp('<Space>?')
   .clearScreen(ALT.l)
+  .multijumpEnable()
+  .multijumpQuickfix()
+  .multijumpBuffers()
   .navigateDiagnostics({ float = true })
 
 ALL_MODES = { 'n', 'i', 'c', 'v', 'x', 's', 'o', 't' }

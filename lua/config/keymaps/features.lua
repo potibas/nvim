@@ -14,6 +14,10 @@ local function map_expr(modes, lhs, rhs, desc)
   vim.keymap.set(modes, lhs, rhs, { desc = desc, expr = true })
 end
 
+local function map_silent_expr(modes, lhs, rhs, desc)
+  vim.keymap.set(modes, lhs, rhs, { desc = desc, expr = true, silent = true })
+end
+
 ---Enable emacs-like editing in the command line
 ---@param cedit? string Mapping to use for bringing the command window
 ---(This is <C-f> in vanilla vim, but emacs mode uses <C-f> to move right).
@@ -342,6 +346,101 @@ function M.navigateDiagnostics(options)
 
   map('n', ']d', next, 'Next diagnostic')
   map('n', '[d', prev, 'Previous diagnostic')
+
+  return M
+end
+
+vim.g.multijump_modes = {
+  ['/'] = { next = 'n', prev = 'N' },
+  ['?'] = { next = 'n', prev = 'N' },
+}
+
+vim.g.multijump_mode = '/'
+
+local function mj_add_mode(mode, next, prev)
+  vim.g.multijump_modes = vim.tbl_extend(
+    'force',
+    vim.g.multijump_modes,
+    { [mode] = { next = next, prev = prev } }
+  )
+end
+
+local function mj_next_expr()
+  return vim.g.multijump_modes[vim.g.multijump_mode].next
+end
+
+local function mj_prev_expr()
+  return vim.g.multijump_modes[vim.g.multijump_mode].prev
+end
+
+local function mj_next_mapping(mode)
+  return function()
+    vim.g.multijump_mode = mode
+    return mj_next_expr()
+  end
+end
+
+local function mj_prev_mapping(mode)
+  return function()
+    vim.g.multijump_mode = mode
+    return mj_prev_expr()
+  end
+end
+
+function M.multijumpEnable()
+  map_silent_expr('n', 'n', mj_next_expr, 'Repeat Last Search')
+  map_silent_expr('n', 'N', mj_prev_expr, 'Repeat Last Search Backwards')
+
+  vim.api.nvim_create_autocmd('CmdlineLeave', {
+    pattern = { '/', '\\?' },
+    group = vim.api.nvim_create_augroup('potibas.multijump', { clear = true }),
+    callback = function(ev)
+      if vim.v.event.abort then
+        return
+      end
+      vim.g.multijump_mode = ev.file -- / or ?
+    end,
+  })
+
+  return M
+end
+
+---Enable multijump mode to navigate the quickfix list with <n> and <N>
+---@return KeymapFeatures
+function M.multijumpQuickfix()
+  local f = require('lib.functions')
+
+  vim.api.nvim_create_user_command('MultijumpQuickfixNext', function()
+    return pcall(vim.cmd.cnext)
+      or pcall(vim.cmd.cfirst)
+      or f.warn('No more errors to move to')
+  end, { desc = 'Next Quickfix Error' })
+
+  vim.api.nvim_create_user_command('MultijumpQuickfixPrev', function()
+    return pcall(vim.cmd.cprev)
+      or pcall(vim.cmd.clast)
+      or f.warn('No more errors to move to')
+  end, { desc = 'Previous Quickfix Error' })
+
+  mj_add_mode(
+    'q',
+    '<Cmd>MultijumpQuickfixNext<CR>',
+    '<Cmd>MultijumpQuickfixPrev<CR>'
+  )
+
+  map_silent_expr('n', ']q', mj_next_mapping('q'), 'Next Quickfix Error')
+  map_silent_expr('n', '[q', mj_prev_mapping('q'), 'Previous Quickfix Error')
+
+  return M
+end
+
+---Enable multijump mode to navigate buffers with <n> and <N>
+---@return KeymapFeatures
+function M.multijumpBuffers()
+  mj_add_mode('b', '<Cmd>bnext<CR>', '<Cmd>bprev<CR>')
+
+  map_silent_expr('n', ']b', mj_next_mapping('b'), 'Next Buffer')
+  map_silent_expr('n', '[b', mj_prev_mapping('b'), 'Previous Buffer')
 
   return M
 end
