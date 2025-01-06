@@ -19,6 +19,7 @@ Spec('extras.colorschemes')
 
 Spec('extras.lang.lua')
 Spec('extras.lang.php')
+Spec('extras.lang.ts')
 
 require('plugins.lazy')
 
