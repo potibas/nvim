@@ -11,6 +11,7 @@ Spec('plugins.lspconfig')
 Spec('plugins.treesitter')
 Spec('plugins.blink')
 Spec('plugins.vim-test')
+Spec('plugins.lazygit')
 
 Spec('plugins.supermaven')
 
