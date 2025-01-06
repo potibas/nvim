@@ -1,3 +1,21 @@
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'Register Lua specific keymaps',
+  group = vim.api.nvim_create_augroup('potibas.keymaps.lua', { clear = true }),
+  pattern = 'lua',
+  callback = function(event)
+    local function map(mode, lhs, rhs, desc)
+      vim.keymap.set(
+        mode,
+        lhs,
+        rhs,
+        { desc = desc, buffer = event.buf, silent = true }
+      )
+    end
+
+    map('n', ';;', '<Cmd>w|!stylua %<CR>', 'Format file with stylua')
+  end,
+})
+
 return {
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
