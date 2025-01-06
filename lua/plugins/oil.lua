@@ -13,6 +13,7 @@ return {
     use_default_keymaps = false,
     keymaps = {
       ['g?'] = { 'actions.show_help', mode = 'n' },
+      ['g/'] = { 'actions.open_cwd', mode = 'n' },
 
       ['<CR>'] = 'actions.select',
       ['<C-j>'] = { 'actions.select', opts = { horizontal = true } },
@@ -26,7 +27,6 @@ return {
 
       ['q'] = { 'actions.close', mode = 'n' },
       ['r'] = { 'actions.refresh', mode = 'n' },
-      ['/'] = { 'actions.open_cwd', mode = 'n' },
 
       ['gs'] = { 'actions.change_sort', mode = 'n' },
       ['gx'] = 'actions.open_external',
