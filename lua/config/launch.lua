@@ -1,4 +1,7 @@
+---@module 'lazy'
+
 ---Configuration Launcher
+---@type { import: string }[]
 LAUNCH_SPEC = {}
 
 ---Adds a module name to be imported in the final Lazy.nvim's spec
