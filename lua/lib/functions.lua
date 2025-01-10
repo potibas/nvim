@@ -25,6 +25,15 @@ function M.pcaller(fun, ...)
   end
 end
 
+---Returns the given value. If `value` is a function, returns the result of executing it.
+---@generic T
+---@param value T|(fun(...): T)
+---@param ... any
+---@return T
+function M.value(value, ...)
+  return type(value) == "function" and value(...) or value
+end
+
 ---Switches the quickfix list window between visible and invisible.
 function M.toggleQuickfix()
   local qf = vim.tbl_filter(function(win)

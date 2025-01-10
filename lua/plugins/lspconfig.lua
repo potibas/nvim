@@ -47,28 +47,32 @@ return {
     },
 
     config = function(_, opts)
+      local f = require('lib.functions')
       local lspconfig = require('lspconfig')
-      -- Get default client capabilities
-      local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-      local handlers = {}
+      local default_server_opts = require('config.lsp.default')
 
       for _, cap in ipairs(opts.capabilities) do
-        client_capabilities =
-          vim.tbl_deep_extend('force', client_capabilities, cap)
+        default_server_opts.capabilities = vim.tbl_deep_extend(
+          'force',
+          default_server_opts.capabilities,
+          f.value(cap)
+        )
       end
 
       --:help mason-lspconfig.setup_handlers()
-      for _, server_name in ipairs(opts.servers) do
-        local ok, server_opts = pcall(require, 'config.lsp.' .. server_name)
+      local handlers = {}
 
-        if not ok then
-          server_opts = {}
+      for _, server_name in ipairs(opts.servers) do
+        local _, custom_opts = pcall(require, 'config.lsp.' .. server_name)
+
+        if type(custom_opts) ~= 'table' then
+          custom_opts = {}
         end
 
-        server_opts.capabilities = vim.tbl_deep_extend(
+        local server_opts = vim.tbl_deep_extend(
           'force',
-          server_opts.capabilities or {},
-          client_capabilities
+          default_server_opts,
+          custom_opts
         )
 
         handlers[server_name] = function()
