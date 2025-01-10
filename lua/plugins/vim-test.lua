@@ -1,3 +1,5 @@
+local f = require('lib.functions')
+
 return {
   'vim-test/vim-test',
   dependencies = { 'preservim/vimux' },
@@ -12,14 +14,15 @@ return {
 
   keys = {
     -- stylua: ignore start
-    { ';tn', '<Cmd>TestNearest<CR>', desc = 'Run nearest test' },
-    { ';tf', '<Cmd>TestFile<CR>', desc = 'Test file' },
-    { ';ta', '<Cmd>TestSuite<CR>', desc = 'Test all' },
-    { ';tt', '<Cmd>TestLast<CR>', desc = 'Repeat last test run' },
-    { ';tN', '<Cmd>TestNearest -strategy=vimux<CR>', desc = 'Run nearest test with Vimux' },
-    { ';tF', '<Cmd>TestFile -strategy=vimux<CR>', desc = 'Test file with Vimux' },
-    { '<C-;>', '<Cmd>TestLast<CR>', desc = 'Repeat last test run' },
-    { '<C-\'>', '<Cmd>TestLast -strategy=vimux<CR>', desc = 'Repeat last test run with Vimux' },
+    { ';tv', '<Cmd>TestVisit<CR>', desc = 'Visit last test' },
+    { ';tn', f.runner_with_save(vim.cmd.TestNearest), desc = 'Run nearest test' },
+    { ';tf', f.runner_with_save(vim.cmd.TestFile), desc = 'Test file' },
+    { ';ta', f.runner_with_save(vim.cmd.TestSuite), desc = 'Test all' },
+    { ';tt', f.runner_with_save(vim.cmd.TestLast), desc = 'Repeat last test run' },
+    { ';tN', f.runner_with_save(vim.cmd.TestNearest, '-strategy=vimux'), desc = 'Run nearest test with Vimux' },
+    { ';tF', f.runner_with_save(vim.cmd.TestFile, '-strategy=vimux'), desc = 'Test file with Vimux' },
+    { '<C-;>', f.runner_with_save(vim.cmd.TestLast), desc = 'Repeat last test run' },
+    { "<C-'>", f.runner_with_save(vim.cmd.TestLast, '-strategy=vimux'), desc = 'Repeat last test run with Vimux' },
     -- stylua: ignore end
   },
 }

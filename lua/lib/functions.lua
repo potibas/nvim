@@ -75,4 +75,16 @@ function M.saveAllAndReload(force)
   end
 end
 
+---Returns a function that tries to save the current buffer and run the given function if successful.
+---@param fun fun()
+---@param ...   any arguments to be passed to the function
+---@return fun(): boolean
+function M.runner_with_save(fun, ...)
+  local args = { ... }
+
+  return function()
+    return pcall(vim.cmd.update) and fun(unpack(args)) and true or false
+  end
+end
+
 return M
