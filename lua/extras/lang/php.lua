@@ -26,9 +26,10 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.cmd.nohlsearch()
     end, 'Add `;` to end of the line')
     map('i', '<C-;>', '<C-o>A;<CR>', 'Close line with `;`')
+
+    vim.opt_local.commentstring = '// %s'
   end,
 })
-
 
 return {
   {
