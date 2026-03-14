@@ -60,7 +60,8 @@ return {
       ---@type blink.cmp.SourceConfig
       sources = {
 
-        default = { 'lsp', 'path', 'emoji' },
+        -- default = { 'lsp', 'path', 'emoji' },
+        default = { 'lsp', 'path' },
 
         providers = {
 

@@ -14,6 +14,7 @@ Spec('plugins.vim-test')
 Spec('plugins.lazygit')
 
 Spec('plugins.supermaven')
+Spec('plugins.codeium')
 
 Spec('extras.colorschemes')
 
